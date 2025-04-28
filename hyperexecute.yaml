@@ -1,0 +1,25 @@
+version: 0.1
+
+globalTimeout: 30
+testSuiteTimeout: 30
+testSuiteStepTimeout: 30
+
+runson: "ubuntu"   # or "windows", depending on your project
+
+# Pre-commands: install dependencies
+pre:
+  - chmod +x gradlew      # give execute permissions to gradlew
+  - ./gradlew clean build # builds your project
+
+# Actual command to run tests
+testDiscovery:
+  type: raw
+  mode: static
+  command: ./gradlew test
+
+# Files or folders to collect reports
+files:
+  - build/reports/ # Karate HTML reports usually go here in Gradle
+
+post:
+  - echo "Tests completed"
