@@ -4,12 +4,15 @@ globalTimeout: 30
 testSuiteTimeout: 30
 testSuiteStepTimeout: 30
 
-runson: "ubuntu"   # or "windows", depending on your project
+runson: "linux"  # Using a generic Linux environment
 
 # Pre-commands: install dependencies
 pre:
-  - chmod +x gradlew      # give execute permissions to gradlew
-  - ./gradlew clean build # builds your project
+  - sudo apt-get update  # Update the package lists for the latest versions
+  - sudo apt-get install -y openjdk-17-jdk  # Install OpenJDK 17
+  - java -version  # Check if Java 17 is installed
+  - chmod +x gradlew  # Give execute permissions to gradlew
+  - ./gradlew clean build  # Build the project
 
 # Actual command to run tests
 testDiscovery:
@@ -19,7 +22,7 @@ testDiscovery:
 
 # Files or folders to collect reports
 files:
-  - build/reports/ # Karate HTML reports usually go here in Gradle
+  - build/reports/karate/  # Karate reports will be here
 
 post:
   - echo "Tests completed"
